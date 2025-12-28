@@ -1,0 +1,131 @@
+---
+const projects = [
+  {
+    title: "Temporal Graph Networks",
+    description: "TGN with fixed and adaptive decay mechanisms for community detection and link prediction, achieving improved silhouette scores and MRR.",
+    tech: ["PyTorch", "NetworkX", "Reddit Dataset"],
+    link: "https://github.com/mohak34/CommDec-DBTA"
+  },
+  {
+    title: "Plastic Debris Detection",
+    description: "Geospatial ML pipeline using Attention U-Net for semantic segmentation of plastic debris in Sentinel-2 satellite imagery.",
+    tech: ["PyTorch", "OpenCV", "GDAL", "Attention U-Net"],
+    link: "https://github.com/OmdenaAI/TriesteItalyChapter_PlasticDebrisDetection"
+  },
+  {
+    title: "Diabetic Retinopathy Analysis",
+    description: "Multi-task pipeline for DR severity classification and lesion segmentation using EfficientNetV2-S with 85.5% accuracy.",
+    tech: ["PyTorch", "OpenCV", "Optuna"],
+    link: "https://github.com/mohak34/Diabetic-Retinopathy"
+  },
+  {
+    title: "Indian Sign Language Recognition",
+    description: "Real-time translation of Indian Sign Language to text and speech using deep learning and MediaPipe.",
+    tech: ["TensorFlow", "Keras", "MediaPipe", "Flask"],
+    link: "https://github.com/mohak34/IndianSignLanguage"
+  }
+];
+---
+
+<section class="section projects">
+  <div class="container">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-list">
+      {projects.map((project) => (
+        <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-item">
+          <div class="project-header">
+            <h3 class="project-title">{project.title}</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </div>
+          <p class="project-description">{project.description}</p>
+          <div class="project-tech">
+            {project.tech.map((t) => (
+              <span class="tech-tag">{t}</span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .project-item {
+    display: block;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    color: inherit;
+  }
+
+  .project-item:hover {
+    border-color: var(--accent);
+    background-color: var(--bg-secondary);
+    opacity: 1;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .external-icon {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+  }
+
+  .project-item:hover .external-icon {
+    color: var(--accent);
+  }
+
+  .project-description {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-secondary);
+  }
+</style>

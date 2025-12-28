@@ -1,0 +1,88 @@
+---
+const experiences = [
+  {
+    title: "Research Intern",
+    company: "NITK Surathkal",
+    period: "May 2025 - June 2025",
+    description: "Developed Temporal Graph Networks with fixed and adaptive decay mechanisms for community detection and link prediction on Reddit dataset with 850K+ interactions."
+  },
+  {
+    title: "Junior ML Engineer",
+    company: "Omdena AI",
+    period: "March 2025 - June 2025",
+    description: "Built end-to-end geospatial ML pipeline for detecting plastic debris across Italian and Mediterranean Seas using satellite imagery and Attention U-Net."
+  }
+];
+---
+
+<section class="section experience">
+  <div class="container">
+    <h2 class="section-title">Experience</h2>
+    <div class="experience-list">
+      {experiences.map((exp) => (
+        <div class="experience-item">
+          <div class="experience-header">
+            <h3 class="experience-title">{exp.title}</h3>
+            <span class="experience-period">{exp.period}</span>
+          </div>
+          <p class="experience-company">{exp.company}</p>
+          <p class="experience-description">{exp.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .experience-item {
+    padding: 0;
+  }
+
+  .experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .experience-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .experience-period {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .experience-company {
+    font-size: 0.875rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .experience-description {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+</style>

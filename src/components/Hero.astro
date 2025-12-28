@@ -1,0 +1,62 @@
+---
+---
+
+<section class="hero">
+  <div class="container">
+    <h1 class="name">Mohak</h1>
+    <p class="tagline">
+      <span>ml researcher</span>
+      <span class="separator">•</span>
+      <span>arch btw</span>
+      <span class="separator">•</span>
+      <span>probably rewriting my neovim config</span>
+    </p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4rem;
+  }
+
+  .container {
+    text-align: center;
+  }
+
+  .name {
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .tagline {
+    font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+    color: var(--text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .separator {
+    color: var(--border);
+  }
+
+  @media (max-width: 480px) {
+    .tagline {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .separator {
+      display: none;
+    }
+  }
+</style>
