@@ -1,19 +1,35 @@
 ---
+const publications = [
+  {
+    title: "Rethinking Temporal Graph Networks: A Comparative Study for Social Network Analysis",
+    authors: "Subramanya Murthy, M., Shetty, D.P.",
+    venue: "IEEE PUNECON",
+    year: "2025",
+    status: "Accepted"
+  }
+];
 ---
 
 <section class="section publications">
   <div class="container">
     <h2 class="section-title">Publications</h2>
-    <div class="publication">
-      <h3 class="publication-title">
-        Rethinking Temporal Graph Networks: A Comparative Study for Social Network Analysis
-      </h3>
-      <p class="publication-meta">
-        <span class="authors">Subramanya Murthy, M., Shetty, D.P.</span>
-        <span class="separator">•</span>
-        <span class="venue">IEEE PUNECON 2025</span>
-      </p>
-      <p class="publication-status">Accepted</p>
+    <div class="publications-list">
+      {publications.map((pub) => (
+        <div class="publication-item">
+          <div class="ribbon">
+            <span class="ribbon-text">{pub.year}</span>
+          </div>
+          <div class="publication-content">
+            <h3 class="publication-title">{pub.title}</h3>
+            <p class="publication-meta">
+              <span class="authors">{pub.authors}</span>
+              <span class="separator">•</span>
+              <span class="venue">{pub.venue}</span>
+            </p>
+            <span class="publication-status">{pub.status}</span>
+          </div>
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -29,26 +45,74 @@
     padding: 0 1.5rem;
   }
 
-  .publication {
-    padding: 0.5rem 0 0 0;
+  .publications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .publication-item {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .ribbon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.5rem;
+    background: linear-gradient(135deg, var(--accent) 0%, rgba(88, 166, 255, 0.7) 100%);
+    border-radius: 4px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ribbon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .publication-item:hover .ribbon::before {
+    left: 100%;
+  }
+
+  .ribbon-text {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--bg-primary);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    letter-spacing: 0.5px;
+  }
+
+  .publication-content {
+    flex: 1;
+    min-width: 0;
   }
 
   .publication-title {
-    font-size: 1.125rem;
+    font-size: 1.05rem;
     font-weight: 500;
     color: var(--text-primary);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.375rem;
     line-height: 1.4;
   }
 
   .publication-meta {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
   }
 
   .separator {
@@ -56,10 +120,20 @@
   }
 
   .publication-status {
-    font-size: 0.75rem;
-    font-weight: 500;
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.075em;
     color: var(--accent);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+  }
+
+  @media (max-width: 480px) {
+    .publication-item {
+      gap: 1rem;
+    }
   }
 </style>
