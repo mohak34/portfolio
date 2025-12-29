@@ -33,16 +33,16 @@ const projects = [
     <div class="projects-list">
       {projects.map((project) => (
         <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
           <div class="project-main">
             <span class="terminal-prompt">&gt;</span>
             <div class="project-content">
               <div class="project-header">
                 <h3 class="project-title">{project.title}</h3>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <line x1="10" y1="14" x2="21" y2="3"></line>
-                </svg>
               </div>
               <p class="project-description">{project.description}</p>
               <div class="project-tech">
@@ -81,6 +81,20 @@ const projects = [
     border-bottom: 1px solid var(--border);
     color: inherit;
     transition: background-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--accent);
+    transform: scaleY(0);
+    transition: transform 0.2s ease;
   }
 
   .project-item:last-child {
@@ -89,14 +103,35 @@ const projects = [
 
   .project-item:hover {
     background-color: var(--bg-secondary);
-    margin: 0 -1rem;
-    padding: 1.25rem 1rem;
+  }
+
+  .project-item:hover::before {
+    transform: scaleY(1);
+  }
+
+  .external-icon {
+    position: absolute;
+    top: 1.25rem;
+    right: 0;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+  }
+
+  .project-item:hover .external-icon {
+    color: var(--accent);
   }
 
   .project-main {
     display: flex;
     gap: 1rem;
     align-items: flex-start;
+    transition: transform 0.2s ease;
+    padding-right: 1.5rem;
+  }
+
+  .project-item:hover .project-main {
+    transform: translateX(0.75rem);
   }
 
   .terminal-prompt {
@@ -124,18 +159,6 @@ const projects = [
     font-size: 1.05rem;
     font-weight: 500;
     color: var(--text-primary);
-  }
-
-  .external-icon {
-    color: var(--text-secondary);
-    flex-shrink: 0;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-
-  .project-item:hover .external-icon {
-    opacity: 1;
-    color: var(--accent);
   }
 
   .project-description {
@@ -166,9 +189,8 @@ const projects = [
       gap: 0.75rem;
     }
 
-    .project-item:hover {
-      margin: 0 -0.5rem;
-      padding: 1.25rem 0.5rem;
+    .project-item:hover .project-main {
+      transform: translateX(0.5rem);
     }
   }
 </style>
