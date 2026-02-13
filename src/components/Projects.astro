@@ -1,6 +1,14 @@
 ---
 const projects = [
   {
+    title: "Opencode Notifier",
+    description: "OpenCode plugin that sends desktop notifications and plays sounds on permission, completion, error, and question events. Cross-platform support for macOS, Linux, and Windows.",
+    tech: ["TypeScript", "OpenCode Plugin", "npm Package", "Cross-platform"],
+    link: "https://github.com/mohak34/opencode-notifier",
+    stars: 202,
+    forks: 15
+  },
+  {
     title: "Temporal Graph Networks",
     description: "TGN with fixed and adaptive decay mechanisms for community detection and link prediction, achieving improved silhouette scores and MRR.",
     tech: ["Graph Neural Networks", "PyTorch", "Social Network Analysis"],
@@ -43,6 +51,22 @@ const projects = [
             <div class="project-content">
               <div class="project-header">
                 <h3 class="project-title">{project.title}</h3>
+                {(project.stars || project.forks) && (
+                  <div class="project-stats">
+                    {project.stars && (
+                      <span class="stat-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        {project.stars}
+                      </span>
+                    )}
+                    {project.forks && (
+                      <span class="stat-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path><path d="M6 9a9 9 0 0 0 9 9"></path></svg>
+                        {project.forks}
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
               <p class="project-description">{project.description}</p>
               <div class="project-tech">
@@ -153,12 +177,33 @@ const projects = [
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.375rem;
+    flex-wrap: wrap;
   }
 
   .project-title {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
+  }
+
+  .project-stats {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    line-height: 1;
   }
 
   .project-description {
