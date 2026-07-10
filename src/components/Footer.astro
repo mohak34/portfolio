@@ -26,9 +26,14 @@
         </svg>
       </a>
     </div>
-    <p class="footer-text">© 2025 Mohak • crafted with neovim on arch btw</p>
+    <p class="footer-text">© <span id="year">{new Date().getFullYear()}</span> Mohak • crafted with neovim on arch btw</p>
   </div>
 </footer>
+
+<script>
+  const el = document.getElementById("year");
+  if (el) el.textContent = String(new Date().getFullYear());
+</script>
 
 <style>
   .footer {
