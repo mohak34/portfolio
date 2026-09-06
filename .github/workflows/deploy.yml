@@ -1,0 +1,58 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Ship to VPS
+        timeout-minutes: 20
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_KEY }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          set -euo pipefail
+          # Keepalives: quiet phases (bun install/fetch) can look idle and
+          # the NAT path severs silent connections (~5 min idle).
+          # (Unquoted $SSH_OPTS below is intentional word splitting.)
+          SSH_OPTS="-i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=15 -o ServerAliveCountMax=6"
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          echo "--- rsync dist/ to $VPS_HOST ---"
+          # Requires $VPS_USER to own /var/www/portfolio (one-time chown on VPS).
+          # Caddy file_server needs only read access, so ubuntu-owned 755 files work.
+          rsync -az --delete -e "ssh $SSH_OPTS" \
+            dist/ "$VPS_USER@$VPS_HOST:/var/www/portfolio/"
+          echo "--- ship done (Caddy serves statically, no restart needed) ---"
+
+      - name: Smoke test
+        run: |
+          status=$(curl -s -o /dev/null -w '%{http_code}' https://portfolio.mohak.dev/)
+          if [ "$status" != "200" ]; then
+            echo "::error::smoke test failed on https://portfolio.mohak.dev/ ($status)"
+            exit 1
+          fi
+          echo "Smoke test passed (portfolio.mohak.dev -> $status)"
