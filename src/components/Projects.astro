@@ -1,12 +1,32 @@
 ---
+const fallbackStats = { stars: 704, forks: 65 };
+
+async function getNotifierStats() {
+  try {
+    const res = await fetch("https://api.github.com/repos/mohak34/opencode-notifier", {
+      headers: { Accept: "application/vnd.github+json" },
+    });
+    if (!res.ok) return fallbackStats;
+    const data = (await res.json()) as { stargazers_count?: number; forks_count?: number };
+    return {
+      stars: data.stargazers_count ?? fallbackStats.stars,
+      forks: data.forks_count ?? fallbackStats.forks,
+    };
+  } catch {
+    return fallbackStats;
+  }
+}
+
+const notifierStats = await getNotifierStats();
+
 const projects = [
   {
     title: "Opencode Notifier",
     description: "OpenCode plugin that sends desktop notifications and plays sounds on permission, completion, error, and question events. Cross-platform support for macOS, Linux, and Windows.",
     tech: ["TypeScript", "OpenCode Plugin", "npm Package", "Cross-platform"],
     link: "https://github.com/mohak34/opencode-notifier",
-    stars: 704,
-    forks: 65
+    stars: notifierStats.stars,
+    forks: notifierStats.forks
   },
   {
     title: "Agent Forge",
